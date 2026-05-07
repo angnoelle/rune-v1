@@ -1,30 +1,19 @@
-import { customProvider, gateway } from "ai";
+import { createOpenAI } from '@ai-sdk/openai';
 import { isTestEnvironment } from "../constants";
 import { titleModel } from "./models";
 
-export const myProvider = isTestEnvironment
-  ? (() => {
-      const { chatModel, titleModel } = require("./models.mock");
-      return customProvider({
-        languageModels: {
-          "chat-model": chatModel,
-          "title-model": titleModel,
-        },
-      });
-    })()
-  : null;
+// 1. Create the OpenRouter connection
+export const openrouter = createOpenAI({
+  apiKey: process.env.OPENROUTER_API_KEY,
+  baseURL: "https://openrouter.ai",
+});
 
+// 2. Tell the app to use OpenRouter for chat
 export function getLanguageModel(modelId: string) {
-  if (isTestEnvironment && myProvider) {
-    return myProvider.languageModel(modelId);
-  }
-
-  return gateway.languageModel(modelId);
+  return openrouter(modelId);
 }
 
+// 3. Tell the app to use OpenRouter for the sidebar titles
 export function getTitleModel() {
-  if (isTestEnvironment && myProvider) {
-    return myProvider.languageModel("title-model");
-  }
-  return gateway.languageModel(titleModel.id);
+  return openrouter(titleModel.id);
 }
