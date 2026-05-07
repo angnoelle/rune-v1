@@ -6,8 +6,7 @@ import { titleModel } from "./models";
 export const openrouter = createOpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
   baseURL: "https://openrouter.ai",
-  compatibility: 'compatible',
-});
+ });
 
 // 2. Tell the app to use OpenRouter for chat
 export function getLanguageModel(modelId: string) {
