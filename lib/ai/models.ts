@@ -1,4 +1,4 @@
-export const DEFAULT_CHAT_MODEL = "moonshotai/kimi-k2.5";
+export const DEFAULT_CHAT_MODEL = "preset/rune-v1-0";
 
 export const titleModel = {
   id: "mistral/mistral-small",
