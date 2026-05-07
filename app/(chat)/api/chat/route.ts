@@ -79,7 +79,7 @@ export async function POST(request: Request) {
     if (!session?.user) {
       return new ChatbotError("unauthorized:chat").toResponse();
     }
-    const forcedModelId = 'preset/rune-v1-0';
+    const forcedModelId = '@preset/rune-v1-0';
     
     const chatModel = allowedModelIds.has(selectedChatModel)
       ? selectedChatModel
