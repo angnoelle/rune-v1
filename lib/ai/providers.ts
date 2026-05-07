@@ -1,18 +1,30 @@
-import { createOpenAI } from '@ai-sdk/openai';
+import { customProvider, gateway } from "ai";
 import { isTestEnvironment } from "../constants";
 import { titleModel } from "./models";
 
-// This tells the app to talk to OpenRouter
-export const openai = createOpenAI({
-  apiKey: process.env.OPENROUTER_API_KEY,
-  baseURL: "https://openrouter.ai",
-});
+export const myProvider = isTestEnvironment
+  ? (() => {
+      const { chatModel, titleModel } = require("./models.mock");
+      return customProvider({
+        languageModels: {
+          "chat-model": chatModel,
+          "title-model": titleModel,
+        },
+      });
+    })()
+  : null;
 
 export function getLanguageModel(modelId: string) {
-  // We force it to use our OpenRouter-configured openai provider
-  return openai(modelId);
+  if (isTestEnvironment && myProvider) {
+    return myProvider.languageModel(modelId);
+  }
+
+  return gateway.languageModel(modelId);
 }
 
 export function getTitleModel() {
-  return openai(titleModel.id);
+  if (isTestEnvironment && myProvider) {
+    return myProvider.languageModel("title-model");
+  }
+  return gateway.languageModel(titleModel.id);
 }
