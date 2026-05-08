@@ -79,7 +79,8 @@ export async function POST(request: Request) {
     if (!session?.user) {
       return new ChatbotError("unauthorized:chat").toResponse();
     }
-    const forcedModelId = '@preset/rune-v1-0';
+    const presetSuffix = '@preset/rune-v1-0';
+    const fullModelString = `${chatModel}${presetSuffix}`;
     
     const chatModel = allowedModelIds.has(selectedChatModel)
       ? selectedChatModel
@@ -193,7 +194,7 @@ export async function POST(request: Request) {
       originalMessages: isToolApprovalFlow ? uiMessages : undefined,
       execute: async ({ writer: dataStream }) => {
         const result = streamText({
-          model: getLanguageModel(forcedModelId),
+          model: getLanguageModel(fullModelString),
           system: systemPrompt({ requestHints, supportsTools }),
           messages: modelMessages,
           stopWhen: stepCountIs(5),
