@@ -195,7 +195,6 @@ export async function POST(request: Request) {
           model: getLanguageModel(chatModel),
           system: systemPrompt({ requestHints, supportsTools }),
           messages: modelMessages,
-          stream: false,
           stopWhen: stepCountIs(5),
           experimental_activeTools:
             isReasoningModel && !supportsTools
