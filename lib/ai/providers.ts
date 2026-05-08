@@ -5,12 +5,13 @@ import { titleModel } from "./models";
 // 1. Create the OpenRouter connection
 export const openrouter = createOpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
-  baseURL: "https://openrouter.ai",
+  baseURL: "https://openrouter.ai/api/v1",
  });
 
 // 2. Tell the app to use OpenRouter for chat
 export function getLanguageModel(modelId: string) {
   const fullModelId = `${modelId}@preset/rune-v1-0`;
+  console.log("Calling model:", fullModelId);
   return openrouter(fullModelId);
 }
 
