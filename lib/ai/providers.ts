@@ -10,8 +10,7 @@ export const openrouter = createOpenAI({
 
 // 2. Tell the app to use OpenRouter for chat
 export function getLanguageModel(modelId: string) {
-  const fullModelId = `${modelId}@preset/rune-v1-0`;
-  console.log("Calling model:", fullModelId);
+    console.log("Calling model:", fullModelId);
   return openrouter(fullModelId);
 }
 
