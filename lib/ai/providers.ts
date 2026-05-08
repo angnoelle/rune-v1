@@ -10,8 +10,8 @@ export const openrouter = createOpenAI({
 
 // 2. Tell the app to use OpenRouter for chat
 export function getLanguageModel(modelId: string) {
-    console.log("Calling model:", fullModelId);
-  return openrouter(fullModelId);
+  console.log("Calling model:", modelId);
+  return openrouter(modelId);
 }
 
 // 3. Tell the app to use OpenRouter for the sidebar titles
