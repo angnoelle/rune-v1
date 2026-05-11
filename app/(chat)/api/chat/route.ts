@@ -197,7 +197,7 @@ export async function POST(request: Request) {
       content: typeof msg.content === 'string' 
         ? msg.content 
         : JSON.stringify(msg.content)
-    }));
+    })) as any;
 
     const result = streamText({
       model: getLanguageModel(chatModel),
