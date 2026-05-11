@@ -192,18 +192,17 @@ export async function POST(request: Request) {
       originalMessages: isToolApprovalFlow ? uiMessages : undefined,
       execute: async ({ writer: dataStream }) => {
         
-modelMessages.forEach(msg => {
-  if (msg.content && typeof msg.content !== 'string') {
-    msg.content = typeof msg.content === 'object' 
-      ? JSON.stringify(msg.content)
-      : String(msg.content);
-  }
-});
+const cleanMessages = modelMessages.map(msg => ({
+  role: msg.role,
+  content: Array.isArray(msg.content) 
+    ? msg.content.map(part => part.text || JSON.stringify(part)).join(' ')
+    : String(msg.content)
+}));
 
     const result = streamText({
       model: getLanguageModel(chatModel),
       system: systemPrompt({ requestHints, supportsTools }),
-      messages: modelMessages,
+      messages: cleanMessages,
           stopWhen: stepCountIs(5),
           experimental_activeTools:
             isReasoningModel && !supportsTools
