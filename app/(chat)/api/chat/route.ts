@@ -196,7 +196,7 @@ export async function POST(request: Request) {
       role: msg.role,
       content: typeof msg.content === 'string' 
         ? msg.content 
-        : msg.content?.map(c => c.text || c).join(' ') || ''
+        : JSON.stringify(msg.content)
     }));
 
     const result = streamText({
