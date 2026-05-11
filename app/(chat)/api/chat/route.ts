@@ -203,7 +203,7 @@ modelMessages.forEach(msg => {
     const result = streamText({
       model: getLanguageModel(chatModel),
       system: systemPrompt({ requestHints, supportsTools }),
-      messages: cleanMessages,
+      messages: modelMessages,
           stopWhen: stepCountIs(5),
           experimental_activeTools:
             isReasoningModel && !supportsTools
