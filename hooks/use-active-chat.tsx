@@ -131,13 +131,13 @@ export function ActiveChatProvider({ children }: { children: ReactNode }) {
           lastMessage?.role !== "user" ||
           request.messages.some((msg) =>
             msg.parts?.some((part) => {
-              const state = (part as { state?: string }).state;
+              const state = (part as { state?: string }).state;	         
               return (
                 state === "approval-responded" || state === "output-denied"
               );
             })
           );
-
+        console.log("Sending messages:", request.messages);
         return {
           body: {
             id: request.id,
@@ -154,9 +154,10 @@ export function ActiveChatProvider({ children }: { children: ReactNode }) {
     onData: (dataPart) => {
       setDataStream((ds) => (ds ? [...ds, dataPart] : []));
     },
-    onFinish: () => {
-      mutate(unstable_serialize(getChatHistoryPaginationKey));
-    },
+   onFinish: (message) => {
+  console.log("onFinish received message:", message);
+  mutate(unstable_serialize(getChatHistoryPaginationKey));
+},
     onError: (error) => {
       if (error.message?.includes("AI Gateway requires a valid credit card")) {
         setShowCreditCardAlert(true);
