@@ -1,11 +1,11 @@
-export const DEFAULT_CHAT_MODEL = "preset/rune-v1-0";
+export const DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b:free@preset/rune-v1-0";
 
 export const titleModel = {
-  id: "mistral/mistral-small",
-  name: "Mistral Small",
-  provider: "mistral",
-  description: "Fast model for title generation",
-  gatewayOrder: ["mistral"],
+  id: "openai/gpt-oss-120b:free@preset/rune-v1-0",
+  name: "Rune v1",
+  provider: "openrouter",
+  description: "Your custom Rune preset",
+  gatewayOrder: ["openrouter"],
 };
 
 export type ModelCapabilities = {
