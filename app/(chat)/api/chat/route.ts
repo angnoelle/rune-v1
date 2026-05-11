@@ -197,7 +197,7 @@ const cleanMessages = modelMessages.map(msg => ({
   content: Array.isArray(msg.content) 
     ? msg.content.map(part => part.text || JSON.stringify(part)).join(' ')
     : String(msg.content)
-}));
+})) as any;
 
     const result = streamText({
       model: getLanguageModel(chatModel),
