@@ -286,8 +286,16 @@ export async function POST(request: Request) {
         }
       },
     onError: (error) => {
-  console.error("Chat error:", error);
-  return `Error: ${error.message}`;
+   if (error.message?.includes("AI Gateway requires a valid credit card")) {
+    setShowCreditCardAlert(true);
+  } else if (error instanceof ChatbotError) {
+    toast({ type: "error", description: error.message });
+  } else {
+    toast({
+      type: "error",
+      description: error.message || "Oops, an error occurred!",
+    });
+  }
 },
     });
 
