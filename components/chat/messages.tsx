@@ -1,3 +1,5 @@
+
+import dynamic from 'next/dynamic';
 import type { UseChatHelpers } from "@ai-sdk/react";
 import { ArrowDownIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
@@ -127,3 +129,4 @@ function PureMessages({
 }
 
 export const Messages = PureMessages;
+export default dynamic(() => Promise.resolve(Messages), { ssr: false });
