@@ -191,10 +191,18 @@ export async function POST(request: Request) {
     const stream = createUIMessageStream({
       originalMessages: isToolApprovalFlow ? uiMessages : undefined,
       execute: async ({ writer: dataStream }) => {
-        const result = streamText({
-          model: getLanguageModel(chatModel),
-          system: systemPrompt({ requestHints, supportsTools }),
-          messages: modelMessages,
+        
+    const cleanMessages = modelMessages.map(msg => ({
+      role: msg.role,
+      content: typeof msg.content === 'string' 
+        ? msg.content 
+        : msg.content?.map(c => c.text || c).join(' ') || ''
+    }));
+
+    const result = streamText({
+      model: getLanguageModel(chatModel),
+      system: systemPrompt({ requestHints, supportsTools }),
+      messages: cleanMessages,
           stopWhen: stepCountIs(5),
           experimental_activeTools:
             isReasoningModel && !supportsTools
