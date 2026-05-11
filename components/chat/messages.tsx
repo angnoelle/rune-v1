@@ -128,5 +128,6 @@ function PureMessages({
   );
 }
 
-export const Messages = PureMessages;
-export default dynamic(() => Promise.resolve(Messages), { ssr: false });
+const MessagesComponent = dynamic(() => Promise.resolve(PureMessages), { ssr: false });
+export { MessagesComponent as Messages };
+export default MessagesComponent;
