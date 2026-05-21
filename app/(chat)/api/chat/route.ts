@@ -191,9 +191,7 @@ export async function POST(request: Request) {
     const modelMessages = uiMessages.map(msg => {
   let content = "";
   
-  if (typeof msg.content === "string") {
-    content = msg.content;
-  } else if (msg.parts && msg.parts.length > 0) {
+  if (msg.parts && msg.parts.length > 0) {
     const textPart = msg.parts.find(p => p.type === "text");
     if (textPart && typeof textPart.text === "string") {
       content = textPart.text;
