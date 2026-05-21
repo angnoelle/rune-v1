@@ -187,6 +187,7 @@ export async function POST(request: Request) {
     const supportsTools = capabilities?.tools === true;
     
     console.log("uiMessages length:", uiMessages.length);
+    console.log("uiMessages sample:", JSON.stringify(uiMessages[0], null, 2));
     const modelMessages = uiMessages.map(msg => ({
   role: msg.role,
   content: msg.content || JSON.stringify(msg.parts)
