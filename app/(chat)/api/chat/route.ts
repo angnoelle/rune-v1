@@ -185,7 +185,8 @@ export async function POST(request: Request) {
     const capabilities = modelCapabilities[chatModel];
     const isReasoningModel = capabilities?.reasoning === false;
     const supportsTools = capabilities?.tools === true;
-
+    
+    console.log("uiMessages length:", uiMessages.length);
     const modelMessages = await convertToModelMessages(uiMessages);
 
     const stream = createUIMessageStream({
