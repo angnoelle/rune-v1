@@ -187,7 +187,10 @@ export async function POST(request: Request) {
     const supportsTools = capabilities?.tools === true;
     
     console.log("uiMessages length:", uiMessages.length);
-    const modelMessages = await convertToModelMessages(uiMessages);
+    const modelMessages = uiMessages.map(msg => ({
+  role: msg.role,
+  content: msg.content || JSON.stringify(msg.parts)
+}));
 
     const stream = createUIMessageStream({
       originalMessages: isToolApprovalFlow ? uiMessages : undefined,
