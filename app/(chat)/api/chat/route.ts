@@ -189,6 +189,7 @@ export async function POST(request: Request) {
     console.log("uiMessages length:", uiMessages.length);
     console.log("uiMessages sample:", JSON.stringify(uiMessages[0], null, 2));
     const modelMessages = uiMessages.map(msg => {
+      
   let content = "";
   
   if (msg.parts && msg.parts.length > 0) {
@@ -215,7 +216,8 @@ modelMessages.forEach(msg => {
       : String(msg.content);
   }
 });
-
+      console.log("modelMessages[0]:", JSON.stringify(modelMessages[0]));
+        
       console.log("modelMessages length:", modelMessages.length);    const result = streamText({
       model: getLanguageModel(chatModel),
       system: systemPrompt({ requestHints, supportsTools }),
