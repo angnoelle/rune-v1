@@ -188,8 +188,24 @@ export async function POST(request: Request) {
     
     console.log("uiMessages length:", uiMessages.length);
     console.log("uiMessages sample:", JSON.stringify(uiMessages[0], null, 2));
-    const modelMessages = await convertToModelMessages(uiMessages);
-
+    const modelMessages = uiMessages.map(msg => {
+  let content = "";
+  
+  if (typeof msg.content === "string") {
+    content = msg.content;
+  } else if (msg.parts && msg.parts.length > 0) {
+    const textPart = msg.parts.find(p => p.type === "text");
+    if (textPart && typeof textPart.text === "string") {
+      content = textPart.text;
+    }
+  }
+  
+  return {
+    role: msg.role,
+    content: content
+  };
+});
+    
     const stream = createUIMessageStream({
       originalMessages: isToolApprovalFlow ? uiMessages : undefined,
       execute: async ({ writer: dataStream }) => {
