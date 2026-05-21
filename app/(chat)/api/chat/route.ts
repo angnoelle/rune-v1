@@ -216,8 +216,7 @@ modelMessages.forEach(msg => {
   }
 });
 
-    console.log("modelMessages being sent:", JSON.stringify(modelMessages, null, 2));
-    const result = streamText({
+      console.log("modelMessages length:", modelMessages.length);    const result = streamText({
       model: getLanguageModel(chatModel),
       system: systemPrompt({ requestHints, supportsTools }),
       messages: modelMessages,
