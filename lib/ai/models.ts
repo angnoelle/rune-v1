@@ -25,7 +25,7 @@ export type ChatModel = {
 
 export const chatModels: ChatModel[] = [
   {
-  id: "openai/gpt-oss-120b",
+  id: "openai/gpt-oss-120b:free@preset/rune-v1-0",
   name: " 🔥 Rune v1 🔥",
   provider: "openrouter",
   description: "My custom Rune preset",
