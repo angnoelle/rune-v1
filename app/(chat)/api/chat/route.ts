@@ -218,18 +218,21 @@ modelMessages.forEach(msg => {
 });
       console.log("modelMessages[0]:", JSON.stringify(modelMessages[0]));
         
-      console.log("modelMessages length:", modelMessages.length);    const result = streamText({
+      console.log("modelMessages length:", modelMessages.length);    
+        const result = streamText({
       model: getLanguageModel(chatModel),
       // system: systemPrompt({ requestHints, supportsTools }),
       messages: modelMessages,
           stopWhen: stepCountIs(5),
           experimental_activeTools: [],         
-          providerOptions: {
-            ...(modelConfig?.gatewayOrder && {
-              gateway: { order: modelConfig.gatewayOrder },
-            }),
-            
-          },
+         providerOptions: {
+  openrouter: {
+    api: "chat-completions"
+  },
+  ...(modelConfig?.gatewayOrder && {
+    gateway: { order: modelConfig.gatewayOrder },
+  }),
+},
          
           experimental_telemetry: {
             isEnabled: isProductionEnvironment,
