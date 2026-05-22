@@ -1,4 +1,4 @@
-export const DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b:free";
+export const DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b:free@preset/rune-v1-0";
 
 export const titleModel = {
   id: "openai/gpt-oss-120b:free@preset/rune-v1-0",
