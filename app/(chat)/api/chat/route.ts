@@ -1,5 +1,6 @@
 export const maxDuration = 60;
 
+import { createOpenRouter } from '@openrouter/ai-sdk-provider';
 import { geolocation, ipAddress } from "@vercel/functions";
 import {
   convertToModelMessages,
@@ -180,6 +181,24 @@ export async function POST(request: Request) {
       });
     }
 
+  const openrouter = createOpenRouter({
+  apiKey: process.env.OPENROUTER_API_KEY,
+  fetch: async (url, options) => {
+    if (options.body) {
+      const body = JSON.parse(options.body as string);
+      
+      if (body.messages) {
+        body.messages = body.messages.map((msg: any) => ({
+          role: msg.role,
+          content: typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content)
+        }));
+      }
+
+      options.body = JSON.stringify(body);
+    }
+    return fetch(url, options);
+  },
+});
     const modelConfig = chatModels.find((m) => m.id === chatModel);
     const modelCapabilities = await getCapabilities();
     const capabilities = modelCapabilities[chatModel];
@@ -220,20 +239,11 @@ modelMessages.forEach(msg => {
         
       console.log("modelMessages length:", modelMessages.length);    
         const result = streamText({
-      model: getLanguageModel(chatModel),
+      model: openrouter(chatModel),
       // system: systemPrompt({ requestHints, supportsTools }),
       messages: modelMessages,
           stopWhen: stepCountIs(5),
           experimental_activeTools: [],         
-         providerOptions: {
-  openrouter: {
-    api: "chat-completions"
-  },
-  ...(modelConfig?.gatewayOrder && {
-    gateway: { order: modelConfig.gatewayOrder },
-  }),
-},
-         
           experimental_telemetry: {
             isEnabled: isProductionEnvironment,
             functionId: "stream-text",
