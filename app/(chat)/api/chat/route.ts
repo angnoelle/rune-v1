@@ -181,10 +181,10 @@ export async function POST(request: Request) {
       });
     }
 
-  const openrouter = createOpenRouter({
+const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY,
   fetch: async (url, options) => {
-    if (options.body) {
+    if (options?.body) {
       const body = JSON.parse(options.body as string);
       
       if (body.messages) {
