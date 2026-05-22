@@ -1,4 +1,4 @@
-export const DEFAULT_CHAT_MODEL = "deepseek/deepseek-r1:free";
+export const DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b:free";
 
 export const titleModel = {
   id: "openai/gpt-oss-120b:free@preset/rune-v1-0",
@@ -25,7 +25,7 @@ export type ChatModel = {
 
 export const chatModels: ChatModel[] = [
   {
-  id: "deepseek/deepseek-r1:free",
+  id: "openai/gpt-oss-120b:free",
   name: " 🔥 Rune v1 🔥",
   provider: "openrouter",
   description: "My custom Rune preset",
