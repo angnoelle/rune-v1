@@ -220,7 +220,7 @@ modelMessages.forEach(msg => {
         
       console.log("modelMessages length:", modelMessages.length);    const result = streamText({
       model: getLanguageModel(chatModel),
-      system: systemPrompt({ requestHints, supportsTools }),
+      // system: systemPrompt({ requestHints, supportsTools }),
       messages: modelMessages,
           stopWhen: stepCountIs(5),
           experimental_activeTools: [],         
