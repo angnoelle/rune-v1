@@ -1,8 +1,8 @@
-export const DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b:free@preset/rune-v1-0";
+export const DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b:free@preset/rune-v2";
 
 export const titleModel = {
-  id: "openai/gpt-oss-120b:free@preset/rune-v1-0",
-  name: "Rune v1",
+  id: "openai/gpt-oss-120b:free@preset/rune-v2",
+  name: "Rune v2",
   provider: "openrouter",
   description: "Your custom Rune preset",
   gatewayOrder: ["openrouter"],
@@ -26,7 +26,7 @@ export type ChatModel = {
 export const chatModels: ChatModel[] = [
   {
   id: "openai/gpt-oss-120b:free",
-  name: " 🔥 Rune v1 🔥",
+  name: " 🔥 Rune v2 🔥",
   provider: "openrouter",
   description: "My custom Rune preset",
   gatewayOrder: ["openrouter"],
